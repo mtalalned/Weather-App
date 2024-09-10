@@ -16,12 +16,113 @@
   </style>
 </head>
 <body>
-    <div class="flex flex-col justify-center items-center gap-y-3 h-[100px] bg-gradient-to-b from-indigo-900 from-[76%] to-white to-100%]">
+    <div class="flex flex-col justify-start items-center gap-y-3 h-[100vh] bg-gradient-to-b from-[#2c3e50] to-[#3498db] pt-6">
         <h1 class="text-4xl text-white">WEATHER APP</h1>
-        <form action="" class="rounded w-[65%] flex justify-center items-center">
-            <input type="text" class="border h-10 w-4/5 rounded-s-md border-slate-300 text-lg text-slate-500">
-            <button type="submit" class="border h-10 w-1/5 rounded-e-md bg-orange-200 border-slate-300 text-lg text-indigo-900">Search</button>
+        
+        <form action="" class="rounded w-[80%] md:w-[65%] flex justify-center items-center">
+            <input type="text" placeholder="Enter name of city to see current weather . . . . . . ." class="border h-10 w-4/5 rounded-s-lg border-slate-300 text-lg text-[#2c3e50] focus:outline-none focus:shadow-[0_0px_10px_2px_#ffffff] ps-3">
+            <button type="submit" class="border h-10 w-1/5 rounded-e-lg border-slate-300 text-lg text-white hover:shadow-[0_0px_10px_2px_#ffffff] active:bg-[#2c3e50] active:text-[16px]">SEARCH</button>
         </form>
+        
+        <div class="flex gap-5 pt-10 px-[1%] w-[100%] flex-wrap justify-center" id="weather-main-div">
+            
+            <div class="basis-2/5 bg-white rounded-lg flex flex-col p-3 gap-3">
+                <div class="flex flex-col">
+                    <p class="text-4xl">Karachi</p>
+                    <p class="text-sm">Tuesday</p>
+                    <p class="text-sm">Date</p>
+                </div>
+                <div class="flex justify-around">
+                    <div>
+                        <h1 class="text-4xl">23 C</h1>
+                        <p class="text-sm">Partly Cloudy</p>
+                    </div>
+
+                    <div>
+                        <img src="./Assets/png-transparent-clouds-sunny-warm-patches-weather-partly-cloudy-symbols-forecast-thumbnail.png" alt="logo" width="100" height="100">
+                    </div>
+                </div>
+                <div class="flex justify-around">
+                    <div class="flex flex-col ">
+                        <h2 class="text-sm">Wind:</h2>
+                        <p class="text-sm">10 km/hr</p>
+                    </div>
+                    <div>
+                        <h2 class="text-sm">Humidity:</h2>
+                        <p class="text-sm">10%</p>
+                    </div>
+                    <div>
+                        <h2 class="text-sm">Precipitation:</h2>
+                        <p class="text-sm">50%</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="basis-2/5 bg-white rounded-lg flex flex-col p-3 gap-3">
+                <div class="flex flex-col">
+                    <p class="text-4xl">Karachi</p>
+                    <p class="text-sm">Tuesday</p>
+                    <p class="text-sm">Date</p>
+                </div>
+                <div class="flex justify-around">
+                    <div>
+                        <h1 class="text-4xl">23 C</h1>
+                        <p class="text-sm">Partly Cloudy</p>
+                    </div>
+
+                    <div>
+                        <img src="./Assets/png-transparent-clouds-sunny-warm-patches-weather-partly-cloudy-symbols-forecast-thumbnail.png" alt="logo" width="100" height="100">
+                    </div>
+                </div>
+                <div class="flex justify-around">
+                    <div class="flex flex-col ">
+                        <h2 class="text-sm">Wind:</h2>
+                        <p class="text-sm">10 km/hr</p>
+                    </div>
+                    <div>
+                        <h2 class="text-sm">Humidity:</h2>
+                        <p class="text-sm">10%</p>
+                    </div>
+                    <div>
+                        <h2 class="text-sm">Precipitation:</h2>
+                        <p class="text-sm">50%</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="basis-2/5 bg-white rounded-lg flex flex-col p-3 gap-3">
+                <div class="flex flex-col">
+                    <p class="text-4xl">Karachi</p>
+                    <p class="text-sm">Tuesday</p>
+                    <p class="text-sm">Date</p>
+                </div>
+                <div class="flex justify-around">
+                    <div>
+                        <h1 class="text-4xl">23 C</h1>
+                        <p class="text-sm">Partly Cloudy</p>
+                    </div>
+
+                    <div>
+                        <img src="./Assets/png-transparent-clouds-sunny-warm-patches-weather-partly-cloudy-symbols-forecast-thumbnail.png" alt="logo" width="100" height="100">
+                    </div>
+                </div>
+                <div class="flex justify-around">
+                    <div class="flex flex-col ">
+                        <h2 class="text-sm">Wind:</h2>
+                        <p class="text-sm">10 km/hr</p>
+                    </div>
+                    <div>
+                        <h2 class="text-sm">Humidity:</h2>
+                        <p class="text-sm">10%</p>
+                    </div>
+                    <div>
+                        <h2 class="text-sm">Precipitation:</h2>
+                        <p class="text-sm">50%</p>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
     </div>
     
 </body>
