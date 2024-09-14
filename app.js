@@ -5,52 +5,6 @@ let cityNameArray = []
 let weatherDataArray = []
 let Days = []
 
-
-// const DateGet = new Date ()
-// console.log (DateGet.getDate())
-// console.log (DateGet.getMonth()+1)
-// console.log (DateGet.getFullYear())
-
-
-form.addEventListener ('submit' , (event) => {
-    
-    event.preventDefault()
-
-    const trimmedCityName = cityNameInput.value.toLowerCase().replaceAll(' ', '') 
-    
-    const apiDATA = fetch (`https://api.weatherapi.com/v1/current.json?key=eb35ff98258548da8fe165621241109&q=${cityNameInput.value}&aqi=no`)
-    .then(res => res.json())
-    .then (res => {
-        console.log (res)
-        // console.log (!cityNameArray.includes(trimmedCityName))
-        if (weatherDataArray.length === 0) {
-            weatherDataArray.push (res)
-            cityNameArray.push(trimmedCityName)
-            Dayimport()
-            // console.log ('if chal raha hai')
-        } else if (!cityNameArray.includes(trimmedCityName)){
-            // console.log ('else if chal raha hai')
-            weatherDataArray.push (res)
-            cityNameArray.push (trimmedCityName)
-            Dayimport()
-        }
-        // console.log('pehla wala' , weatherDataArray)
-        
-        renderWeatherData()
-        
-        
-    }).catch(err => {
-        alert(err.error.message)
-    })
-
-    cityNameInput.value = ''
-
-    // console.log(weatherDataArray.length)
-})
-
-// console.log('dusra wala' , weatherDataArray)
-
-
 function Dayimport () {
     const todayDate = new Date ()
     if (todayDate.getDay() === 0 ) {
@@ -76,7 +30,7 @@ function renderWeatherData () {
 
     weatherDataArray.map ((items , index)=>{
         weatherDiv.innerHTML += `
-        <div id="weather-pallete" class="basis-[90%] min-[550px]:basis-[75%] sm:basis-[65%] md:basis-[46%] lg:basis-[30%] bg-white rounded-lg flex flex-col p-3 gap-3 relative hover:shadow-[2px_2px_10px_2px_#ffffff] hover:outline hover:outline-1 hover:outline-cyan-400">
+        <div class="basis-[90%] min-[550px]:basis-[75%] sm:basis-[65%] md:basis-[46%] lg:basis-[30%] bg-white rounded-lg flex flex-col p-3 gap-3 relative hover:shadow-[2px_2px_10px_2px_#ffffff] hover:outline hover:outline-1 hover:outline-cyan-400">
             <div class="flex flex-col">
                 <p class="text-4xl">${items.location.name}, ${items.location.region}</p>
                 <p class="text-sm">${Days[index]}</p>
@@ -108,63 +62,55 @@ function renderWeatherData () {
                 </div>
             </div>
             <div>
-                <button class="absolute right-[2.5%] top-[2.5%]"><i class="fa-solid fa-xmark text-2xl"></i></button>
+                <button class="absolute right-[2.5%] top-[2.5%] p-0 m-0"><i class="remove-btn-${index} fa-solid fa-xmark text-2xl"></i></button>
             </div>
         </div>
         `
     })
 }
 
+form.addEventListener ('submit' , (event) => {
+    
+    event.preventDefault()
 
-// var abc = []
-// console.log (abc)
+    const trimmedCityName = cityNameInput.value.toLowerCase().replaceAll(' ', '') 
+    
+    const apiDATA = fetch (`https://api.weatherapi.com/v1/current.json?key=eb35ff98258548da8fe165621241109&q=${cityNameInput.value}&aqi=no`)
+    .then(res => res.json())
+    .then (res => {
+        console.log (res)
+        if (weatherDataArray.length === 0) {
+            weatherDataArray.push (res)
+            cityNameArray.push(trimmedCityName)
+            Dayimport()
+        } else if (!cityNameArray.includes(trimmedCityName)){
+            weatherDataArray.push (res)
+            cityNameArray.push (trimmedCityName)
+            Dayimport()
+        }
+        
+        renderWeatherData()
 
-
-
-
-
-
-
-// weather API
-// const weatherApi = fetch('https://api.weatherapi.com/v1/current.json?key=eb35ff98258548da8fe165621241109&q=${karachi}&aqi=no')
-// .then (res => {
-//     return res.json()
-// }).then(res =>{
-//     console.log (res)
-//     console.log (weatherApi)
-// }).catch (error=>{
-//     console.log (error)
-// })
-
-
-// // Epoch timestamp
-// const epochTime = 1726240034;
-
-// // Convert epoch time to milliseconds
-// const milliseconds = epochTime * 1000;
-
-// // Create a new Date object
-// const date = new Date(milliseconds);
-
-// // Format the date as a local string
-// const localTimeString = date.toLocaleString('en-US', { timeZone: 'Asia/Karachi' });
-
-// console.log(localTimeString);
-
-const asyncTask = new Promise ((resolve , reject) => {
-    const weatherPallete = document.querySelector ('#weather-pallete')
-    resolve (weatherPallete)
-    reject ('Unable to Obtain Weather Pallete')
+    }).catch(err => {
+        alert(err)
+    })
+    
+    cityNameInput.value = ''
+    
 })
 
-asyncTask
-.then (res => {
-    console.log (res)
-    // res.addEventListener ('click' , event => {
-    //     console.log (event.target.innerHTML)
-    // })
+weatherDiv.addEventListener ('click' , event => {
+    for (let i = 0; i < weatherDataArray.length; i++) {
+        if (event.target.classList.contains (`remove-btn-${i}`)) {
+            console.log ('andar wala' , i)
+            weatherDataArray.splice(i , 1)
+            cityNameArray.splice (i , 1)
+            Days.splice(i , 1)
+            renderWeatherData ()
+            break;
+        }
+    }
 })
 
-// weatherPallete.addEventListener('click' , (event)=>{
-//     console.log (event.target.innerHTML)
-// })
+
+
