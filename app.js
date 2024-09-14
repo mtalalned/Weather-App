@@ -62,7 +62,7 @@ function renderWeatherData () {
                 </div>
             </div>
             <div>
-                <button class="absolute right-[2.5%] top-[2.5%] p-0 m-0"><i class="remove-btn-${index} fa-solid fa-xmark text-2xl"></i></button>
+                <button class="absolute right-[2.5%] top-[2.5%] p-0 m-0"><i class="remove-btn-${index} fa-solid fa-xmark text-2xl active:text-[1.25rem]"></i></button>
             </div>
         </div>
         `
@@ -102,7 +102,6 @@ form.addEventListener ('submit' , (event) => {
 weatherDiv.addEventListener ('click' , event => {
     for (let i = 0; i < weatherDataArray.length; i++) {
         if (event.target.classList.contains (`remove-btn-${i}`)) {
-            console.log ('andar wala' , i)
             weatherDataArray.splice(i , 1)
             cityNameArray.splice (i , 1)
             Days.splice(i , 1)
