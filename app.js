@@ -5,23 +5,16 @@ let cityNameArray = []
 let weatherDataArray = []
 let Days = []
 
-function Dayimport () {
-    const todayDate = new Date ()
-    if (todayDate.getDay() === 0 ) {
-        Days.push('Sunday')
-    } else if (todayDate.getDay() === 1 ){
-        Days.push ('Monday')
-    } else if (todayDate.getDay() === 2 ){
-        Days.push ('Tuesday')
-    } else if (todayDate.getDay() === 3 ){
-        Days.push ('Wednesday')
-    } else if (todayDate.getDay() === 4 ){
-        Days.push ('Thursday')
-    } else if (todayDate.getDay() === 5 ){
-        Days.push ('Friday')
-    } else if (todayDate.getDay() === 6 ){
-        Days.push ('Saturday')
-    }
+function Dayimport (res) {
+
+    const currentDate = new Date ()
+
+    const specificTimeZoneDate = new Intl.DateTimeFormat ('en-US', {
+        timeZone: res.location.tz_id,
+        dateStyle: 'full',
+    }).format(currentDate).split(',')
+
+    Days.push (specificTimeZoneDate[0])
 }
 
 function renderWeatherData () {
@@ -62,7 +55,7 @@ function renderWeatherData () {
                 </div>
             </div>
             <div>
-                <button class="absolute right-[2.5%] top-[2.5%] p-0 m-0"><i class="remove-btn-${index} fa-solid fa-xmark text-2xl active:text-[1.25rem]"></i></button>
+                <button class="absolute right-[2.5%] top-[2.5%] px-1 m-0 hover:text-white hover:bg-cyan-400 hover:rounded-full active:bg-cyan-900"><i class="remove-btn-${index} fa-solid fa-xmark text-2xl"></i></button>
             </div>
         </div>
         `
@@ -78,21 +71,20 @@ form.addEventListener ('submit' , (event) => {
     const apiDATA = fetch (`https://api.weatherapi.com/v1/current.json?key=eb35ff98258548da8fe165621241109&q=${cityNameInput.value}&aqi=no`)
     .then(res => res.json())
     .then (res => {
-        console.log (res)
         if (weatherDataArray.length === 0) {
             weatherDataArray.push (res)
             cityNameArray.push(trimmedCityName)
-            Dayimport()
+            Dayimport(res)
         } else if (!cityNameArray.includes(trimmedCityName)){
             weatherDataArray.push (res)
             cityNameArray.push (trimmedCityName)
-            Dayimport()
+            Dayimport(res)
         }
         
         renderWeatherData()
 
     }).catch(err => {
-        alert(err)
+        alert('Check for following errors: \n 1. Enter the name correctly \n 2. Ensure spaces between words are placed where ever present in city name \n 3. Weather data for the city may not be available')
     })
     
     cityNameInput.value = ''
@@ -110,6 +102,7 @@ weatherDiv.addEventListener ('click' , event => {
         }
     }
 })
+
 
 
 
