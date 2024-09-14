@@ -36,7 +36,7 @@ function renderWeatherData () {
                 <p class="text-sm">${Days[index]}</p>
                 <p class="text-sm">${items.current.last_updated}</p>
             </div>
-            <div class="flex justify-around">
+            <div class="flex justify-around items-center">
                 <div>
                     <h1 class="text-4xl">${items.current.temp_c}&deg;C</h1>
                     <p class="text-sm">${items.current.condition.text} ${items.current.cloud}%</p>
