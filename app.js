@@ -4,7 +4,9 @@ const weatherDiv = document.querySelector('#weather-main-div')
 let cityNameArray = []
 let weatherDataArray = []
 let Days = []
-let loaderCheck = true
+const blurDiv = document.querySelector ('#blur-background')
+const toastDiv = document.querySelector ('#toast-div')
+
 
 const loader = `
 <div role="status" class="basis-[90%] min-[550px]:basis-[75%] sm:basis-[65%] md:basis-[46%] lg:basis-[30%] flex flex-col p-3 gap-2 justify-center items-center">
@@ -14,6 +16,32 @@ const loader = `
     </svg>
     <span class="font-bold text-lg text-white">Loading......</span>
 </div>
+`
+
+const toast = `
+    <div id="toast-warning" class="relative w-[80%] max-w-[500px] flex max-[450px]:flex-col items-center p-4 text-gray-500 bg-white rounded-lg shadow-[0px_0px_20px_1px_red] outline outline-2 outline-red-400 dark:text-gray-400 dark:bg-gray-800" role="alert">
+        <div class="inline-flex items-center justify-center flex-shrink-0 w-12 h-12 max-[450px]:w-[50px] max-[450px]:h-[50px] text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
+            <svg class="w-10 h-10 max-[450px]:w-[40px] max-[450px]:h-[40px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/>
+            </svg>
+            <span class="sr-only">Warning icon</span>
+        </div>
+        <div class="ms-3 text-sm font-normal">
+            <h1 class="text-black text-lg font-bold mb-1">ERROR:</h1>
+            <p class="mb-1">Check for following errors:</p>
+            <ol>
+                <li>1. Enter the city name correctly</li>
+                <li>2. Ensure blank spaces between words are placed where ever present in official city name</li>
+                <li>3. Weather data for the city may not be available</li>
+            </ol>
+        </div>
+        <button id="close-button" type="button" class="absolute top-2 right-2 ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-warning" aria-label="Close">
+            <span class="sr-only">Close</span>
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+            </svg>
+        </button>
+    </div>
 `
 
 
@@ -178,7 +206,7 @@ function renderWeatherData () {
 form.addEventListener ('submit' , (event) => {
     
     event.preventDefault()
-
+    
     if (weatherDataArray.length === 0) {
         weatherDiv.innerHTML = loader
     } else if (weatherDataArray.length >= 1) {
@@ -204,9 +232,34 @@ form.addEventListener ('submit' , (event) => {
         renderWeatherData()
 
     }).catch(err => {
-        alert('Check for following errors: \n 1. Enter the name correctly \n 2. Ensure spaces between words are placed where ever present in city name \n 3. Weather data for the city may not be available')
+        
+        if (toastDiv.classList.contains('hidden')){
+            toastDiv.classList.remove ('hidden')
+            toastDiv.innerHTML = toast
+            blurDiv.classList.remove('hidden')
+        }
+        
+        const toastCloseButton = document.querySelector ('#close-button') 
+        
+        toastCloseButton.addEventListener ('click' , event => {
+            if (event.target.tagName === 'SPAN' || event.target.tagName === 'svg'){
+                event.target.parentNode.parentNode.remove()
+                toastDiv.classList.add ('hidden')
+                blurDiv.classList.add('hidden')
+            } else if (event.target.tagName === 'path') {
+                event.target.parentNode.parentNode.parentNode.remove()
+                toastDiv.classList.add ('hidden')
+                blurDiv.classList.add('hidden')
+            } else {
+                event.target.parentNode.remove()
+                toastDiv.classList.add ('hidden')
+                blurDiv.classList.add('hidden')
+            }
+        })
+        
         weatherDataArray.pop()
         renderWeatherData()
+        
     })
     
     cityNameInput.value = ''
@@ -224,7 +277,6 @@ weatherDiv.addEventListener ('click' , event => {
         }
     }
 })
-
 
 
 
