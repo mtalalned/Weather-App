@@ -30,9 +30,10 @@ const toast = `
             <h1 class="text-black text-lg font-bold mb-1">ERROR:</h1>
             <p class="mb-1">Check for following errors:</p>
             <ol>
-                <li>1. Enter the city name correctly</li>
+                <li>1. Enter the correct city name</li>
                 <li>2. Ensure blank spaces between words are placed where ever present in official city name</li>
                 <li>3. Weather data for the city may not be available</li>
+                <li>4. Check your Internet Connection</li>
             </ol>
         </div>
         <button id="close-button" type="button" class="absolute top-2 right-2 ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-warning" aria-label="Close">
